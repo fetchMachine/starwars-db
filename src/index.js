@@ -1,3 +1,5 @@
-const span = document.createElement('span');
-span.textContent = 'Hello World';
-document.body.appendChild(span);
+import SwapiBD from './SwapiBD';
+
+const db = new SwapiBD();
+db.getPerson(1)
+    .then(person => console.log(person.name));
