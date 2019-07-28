@@ -19,7 +19,7 @@ export default class SwapiBD {
 
     getAllPersons() {
         const url = `${this.#url}people`;
-        return this.getData(url);
+        return this.getData(url).then(data => data.results).then(persons => persons.map(this.transformPerson));
     }
 
     getPerson(id) {
@@ -66,8 +66,22 @@ export default class SwapiBD {
           imgUrl,
           name: planet.name,
           population: planet.population,
-          rotationPeriod: planet.rotationPeriod,
+          rotationPeriod: planet.rotation_period,
           diameter: planet.diameter,
+        }
+    }
+
+    transformPerson = (person) => {
+        const id = this.getIdFromUrl(person.url);
+        const imgUrl = this.getImageUrl('peoples', id);
+
+        return {
+            id,
+            imgUrl,
+            name: person.name,
+            birthYear: person.birth_year,
+            eyeColor: person.eye_color,
+            gender: person.gender,
         }
     }
 }
