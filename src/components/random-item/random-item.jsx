@@ -18,11 +18,11 @@ const ItemView = ({ planet }) => {
         <h2>{name}</h2>
         <ul className="random-item__description list-group-flush">
           <li className="random-item__description">
-            <span className="term">Population</span>
+            <span className="random-item__description-term-text">Population</span>
             <span>{population}</span>
           </li>
           <li className="random-item__description">
-            <span className="term">Rotation Period</span>
+            <span className="random-item__description-term-text">Rotation Period</span>
             <span>{rotationPeriod}</span>
           </li>
           <li className="random-item__description">
@@ -36,11 +36,6 @@ const ItemView = ({ planet }) => {
 };
 
 export default class RandomItem extends Component {
-
-  constructor() {
-    super();
-    this.setRandomPlanet();
-  }
 
   state = {
     planet: {},
@@ -69,6 +64,11 @@ export default class RandomItem extends Component {
     this.swapiService.getRandomPlanet()
       .then(this.onPlanetLoad)
       .catch(this.onError);
+  }
+
+  componentDidMount() {
+    this.setRandomPlanet();
+    this.timerID = setInterval(this.setRandomPlanet, 5000);
   }
 
   render() {
