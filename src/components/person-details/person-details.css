@@ -1,0 +1,23 @@
+.person-details {
+  display: flex;
+  flex-direction: row;
+  padding: 1rem;
+}
+
+.person-details__image {
+  width: 20%;
+  height: 20%;
+  border-radius: 10px;
+}
+
+.person-details__description {
+  margin-left: 2rem;
+}
+
+.person-details__description-item {
+  padding: .25rem;
+}
+
+.person-details__description-term-text {
+  margin-right: .5rem;
+}

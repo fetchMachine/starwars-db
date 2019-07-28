@@ -1,0 +1,8 @@
+.item-list__item {
+  cursor: pointer;
+  user-select: none;
+}
+
+.item-list__item:hover {
+  background-color: #444;
+}

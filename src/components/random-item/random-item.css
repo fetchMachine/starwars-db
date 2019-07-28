@@ -1,0 +1,23 @@
+.random-item {
+  display: flex;
+  padding: 1rem;
+}
+
+.random-item__item-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  margin-right: 1rem;
+}
+
+.random-item__description {
+  margin: 1rem 0 0 1rem;
+}
+
+.random-item__description-item {
+  padding: .25rem;
+}
+
+.random-item__description-term-text {
+  margin-right: .5rem;
+}

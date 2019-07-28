@@ -1,5 +1,6 @@
-import SwapiBD from './SwapiBD';
+import React from 'react';
+import ReactDom from 'react-dom';
+import App from './components/app';
 
-const db = new SwapiBD();
-db.getPerson(1)
-    .then(person => console.log(person.name));
+const root = document.body.querySelector('#root');
+ReactDom.render(<App />, root);
