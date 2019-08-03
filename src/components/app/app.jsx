@@ -7,11 +7,16 @@ import './app.css';
 
 export default class App extends Component {
 
-  onItemSwap = (item) => {
-    window.console.dir(item);
+  state = {
+    currItemID: 1,
+  }
+
+  onItemSwap = (itemID) => {
+    this.setState({ currItemID: itemID });
   }
 
   render() {
+    const { currItemID } = this.state;
     return (
       <div className="app-wrapper">
         <Header />
@@ -22,7 +27,7 @@ export default class App extends Component {
           </div>
           <div className="col-md-8">
             <div>
-              <PersonDetails />
+              <PersonDetails personID={currItemID} isLoad={true} />
             </div>
           </div>
         </main>
