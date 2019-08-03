@@ -24,7 +24,9 @@ export default class SwapiBD {
 
     getPerson(id) {
         const url = `${this.#url}people/${id}`;
-        return this.getData(url);
+        return this.getData(url)
+            .then(this.transformPerson)
+            .catch(window.console.log.bind(window.console));
     }
 
     getAllStarships() {
@@ -73,7 +75,7 @@ export default class SwapiBD {
 
     transformPerson = (person) => {
         const id = this.getIdFromUrl(person.url);
-        const imgUrl = this.getImageUrl('peoples', id);
+        const imgUrl = this.getImageUrl('characters', id);
 
         return {
             id,
