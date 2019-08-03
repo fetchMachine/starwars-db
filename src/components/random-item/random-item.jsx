@@ -71,6 +71,10 @@ export default class RandomItem extends Component {
     this.timerID = setInterval(this.setRandomPlanet, 5000);
   }
 
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
   render() {
     const { isLoading, planet, isError } = this.state;
     const error = isError ? <ErrorIndocator /> : null;
