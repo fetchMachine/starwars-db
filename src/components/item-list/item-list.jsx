@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import SwapiService from '../../services/swapi-service';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator'
 import './item-list.css';
@@ -7,16 +6,14 @@ import './item-list.css';
 export default class ItemList extends Component {
 
   state = {
-    persons: [],
+    items: [],
     isLoad: true,
     isError: false,
   }
 
-  swapiService = new SwapiService();
-
-  onPersonsLoad = (persons) => {
+  onitemsLoad = (items) => {
     this.setState({
-      persons,
+      items,
       isLoad: false
     });
   }
@@ -29,25 +26,27 @@ export default class ItemList extends Component {
   }
 
   componentDidMount() {
-    this.swapiService.getAllPersons()
-      .then(this.onPersonsLoad)
+    this.props.getItems()
+      .then(this.onitemsLoad)
       .catch(this.onError);
   }
 
   getItemsElements() {
-    const { persons } = this.state;
+    const { items } = this.state;
     const { onItemClick } = this.props;
-    return persons.map(person => (
-      <li
+    return items.map((item) => {
+      const { id } = item;
+      const { label } = this.props.getItemData(item);
+      return (<li
         className="list-group-item item-list__item"
-        key={person.id}
+        key={id}
         onClick={
-          () => onItemClick(person.id)
+          () => onItemClick(id)
         }
       >
-        {person.name}
+        {label}
       </li>
-    ));
+    )});
   }
 
   render() {

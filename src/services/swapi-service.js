@@ -17,45 +17,51 @@ export default class SwapiBD {
         return `${this.#imgUrl}${type}/${id}.jpg`;
     }
 
-    getAllPersons() {
+    getAllPersons = () => {
         const url = `${this.#url}people`;
-        return this.getData(url).then(data => data.results).then(persons => persons.map(this.transformPerson));
+        return this.getData(url)
+            .then(data => data.results)
+            .then(persons => persons.map(this.transformPerson))
+            .catch(window.console.log.bind(window.console));
     }
 
-    getPerson(id) {
+    getPerson = (id) => {
         const url = `${this.#url}people/${id}`;
         return this.getData(url)
             .then(this.transformPerson)
             .catch(window.console.log.bind(window.console));
     }
 
-    getAllStarships() {
+    getAllStarships = () => {
         const url = `${this.#url}starships`;
         return this.getData(url);
     }
 
-    getStarship(id) {
+    getStarship = (id) => {
         const url = `${this.#url}starships/${id}`;
         return this.getData(url);
     }
 
-    getAllPlanets() {
+    getAllPlanets = () => {
         const url = `${this.#url}planets`;
-        return this.getData(url).then(planets => planets.map(this.transformPlanet));
+        return this.getData(url)
+            .then(data => data.results)
+            .then(planets => planets.map(this.transformPlanet))
+            .catch(window.console.log.bind(window.console));
     }
 
-    getPlanet(id) {
+    getPlanet = (id) => {
         const url = `${this.#url}planets/${id}`;
         return this.getData(url)
             .then(this.transformPlanet);
     }
 
-    getRandomPlanet() {
+    getRandomPlanet = () => {
         const randomID = Math.floor(Math.random() * 19) + 1;
         return this.getPlanet(randomID);
     }
 
-    getIdFromUrl(url) {
+    getIdFromUrl = (url) => {
         const idRegexp = /([0-9]+)/;
         return url.match(idRegexp)[1];
     }
@@ -65,6 +71,7 @@ export default class SwapiBD {
         const imgUrl = this.getImageUrl('planets', id);
 
         return {
+          id,
           imgUrl,
           name: planet.name,
           population: planet.population,

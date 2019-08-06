@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Header from '../header';
 import RandomItem from '../random-item';
-import PersonPage from '../person-page';
+import ItemCard from '../item-card';
 import './app.css';
 
 export default class App extends Component {
@@ -11,9 +11,7 @@ export default class App extends Component {
       <div className="app-wrapper">
         <Header />
         <RandomItem />
-        <main className="row mb2">
-          <PersonPage />
-        </main>
+        <ItemCard />
       </div>
     )
   }

@@ -1,24 +1,24 @@
-.person-details {
+.item-details {
   display: flex;
   flex-direction: row;
   padding: 1rem;
   min-height: 18.4rem;
 }
 
-.person-details__image {
+.item-details__image {
   width: 20%;
   height: 20%;
   border-radius: 10px;
 }
 
-.person-details__description {
+.item-details__description {
   margin-left: 2rem;
 }
 
-.person-details__description-item {
+.item-details__description-item {
   padding: .25rem;
 }
 
-.person-details__description-term-text {
+.item-details__description-term-text {
   margin-right: .5rem;
 }
