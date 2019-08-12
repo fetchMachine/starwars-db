@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemList from '../item-list';
-import { SwapiServiceConsumer } from '../ctx-swapi-service';
+import { withSwapiService } from '../hoc-helpers';
 
 const renderPersonData = (item) => {
   const gender = item.gender === 'n/a' ? 'robot' : item.gender;
@@ -9,22 +9,20 @@ const renderPersonData = (item) => {
   }
 };
 
-const PersonItemList = ({ onItemClick, ...restProps }) => {
+const _PersonItemList = (props) => {
   return (
-    <SwapiServiceConsumer>
-      {
-        ({ getAllPersons }) => (
-          <ItemList
-            onItemClick={onItemClick}
-            getItems={getAllPersons}
-            getItemData={renderPersonData}
-            {...restProps}
-          />
-        )
-      }
-    </SwapiServiceConsumer>
-  );
+      <ItemList
+        getItemData={renderPersonData}
+        {...props}
+      />
+    );
 }
+
+const mapMathodsToProps = (swapiservice) => ({
+  getItems: swapiservice.getAllPersons,
+});
+
+const PersonItemList = withSwapiService(_PersonItemList, mapMathodsToProps);
 
 export {
   PersonItemList,

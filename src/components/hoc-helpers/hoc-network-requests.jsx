@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import ErrorIndocator from '../error-indicator';
 
-const HocNetwortkRecwest = (ComponentToWrapp) => {
+const withNetwortkRequest = (Wrapped) => {
   return class extends Component {
 
     state = {
@@ -24,12 +24,10 @@ const HocNetwortkRecwest = (ComponentToWrapp) => {
         return <ErrorIndocator />
       }
 
-      return <ComponentToWrapp {...this.props} data={this.state.data} setData={this.setData} />
+      return <Wrapped {...this.props} data={this.state.data} setData={this.setData} />
     }
   }
 }
 
 
-export {
-  HocNetwortkRecwest,
-};
+export default withNetwortkRequest;

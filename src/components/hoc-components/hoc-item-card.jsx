@@ -3,7 +3,7 @@ import { PersonItemList } from './hoc-item-list';
 import { PersonItemDetails } from './hoc-item-details';
 import RowCol2 from '../row-col2';
 
-import { HocNetwortkRecwest } from '../hoc-helpers';
+import { withNetwortkRequest } from '../hoc-helpers';
 
 const PersonItemCard = ({ data, setData }) => {
   const itemID = data;
@@ -18,7 +18,7 @@ const PersonItemCard = ({ data, setData }) => {
   />
 }
 
-const PersonCard = HocNetwortkRecwest(PersonItemCard);
+const PersonCard = withNetwortkRequest(PersonItemCard);
 
 export {
   PersonCard,

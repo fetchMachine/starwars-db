@@ -1,5 +1,7 @@
-import { HocNetwortkRecwest } from './hoc-network-requests'
+import withNetwortkRequest from './hoc-network-requests';
+import withSwapiService from './with-swapi-service';
 
 export {
-  HocNetwortkRecwest,
+  withNetwortkRequest,
+  withSwapiService,
 }
