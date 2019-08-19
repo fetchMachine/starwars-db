@@ -9,21 +9,36 @@ const renderPersonData = (item) => {
   }
 };
 
-const _PersonItemList = (props) => {
-  return (
-      <ItemList
-        getItemData={renderPersonData}
-        {...props}
-      />
-    );
+const renderPlanetData = item => ({ label: item.name });
+const renderStarshipData = item => ({ label: item.name });
+
+const withRenderData = (renderData) => {
+  return (props) => (
+    <ItemList
+      getItemData={renderData}
+      {...props}
+    />
+  );
 }
 
-const mapMathodsToProps = (swapiservice) => ({
+const mapMathodsToPropsPersons = (swapiservice) => ({
   getItems: swapiservice.getAllPersons,
 });
 
-const PersonItemList = withSwapiService(_PersonItemList, mapMathodsToProps);
+const mapMathodsToPropsPlanets = (swapiservice) => ({
+  getItems: swapiservice.getAllPlanets,
+});
+
+const mapMathodsToPropsStarships = (swapiservice) => ({
+  getItems: swapiservice.getAllStarships,
+});
+
+const PersonItemList = withSwapiService(withRenderData(renderPersonData), mapMathodsToPropsPersons);
+const PlanetItemList = withSwapiService(withRenderData(renderPlanetData), mapMathodsToPropsPlanets);
+const StarshipItemList = withSwapiService(withRenderData(renderStarshipData), mapMathodsToPropsStarships);
 
 export {
   PersonItemList,
+  PlanetItemList,
+  StarshipItemList,
 };

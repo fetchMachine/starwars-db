@@ -34,12 +34,17 @@ export default class SwapiBD {
 
     getAllStarships = () => {
         const url = `${this.#url}starships`;
-        return this.getData(url);
+        return this.getData(url)
+            .then(data => data.results)
+            .then(starships => starships.map(this.transformStarship))
+            .catch(window.console.log.bind(window.console));
     }
 
     getStarship = (id) => {
         const url = `${this.#url}starships/${id}`;
-        return this.getData(url);
+        return this.getData(url)
+            .then(this.transformStarship)
+            .catch(window.console.log.bind(window.console));
     }
 
     getAllPlanets = () => {
@@ -92,5 +97,19 @@ export default class SwapiBD {
             eyeColor: person.eye_color,
             gender: person.gender,
         }
+    }
+
+    transformStarship = (starship) => {
+        const id = this.getIdFromUrl(starship.url);
+        const imgUrl = this.getImageUrl('starships', id);
+
+        return {
+            id,
+            imgUrl,
+            name: starship.name,
+            model: starship.model,
+            costInCredits: starship.cost_in_credits,
+            cargoCapacity: starship.cargo_capacity,
+         }
     }
 }

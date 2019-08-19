@@ -14,6 +14,34 @@ const _PersonItemDetails = ({ itemID, swapiService, ...restProps }) => {
 
 const PersonItemDetails = withSwapiService(_PersonItemDetails);
 
+const _StarshipItemDetails = ({ itemID, swapiService, ...restProps }) => {
+  return (
+    <ItemDetails itemID={itemID} getData={swapiService.getStarship} {...restProps}>
+      <DetailRecord label='Model' field='model' />
+      <DetailRecord label='Cost' field='costInCredits' />
+      <DetailRecord label='Capacity' field='cargoCapacity' />
+    </ItemDetails>
+  );
+};
+
+const StarshipItemDetails = withSwapiService(_StarshipItemDetails);
+
+
+const _PlanetItemDetails = ({ itemID, swapiService, ...restProps }) => {
+  return (
+    <ItemDetails itemID={itemID} getData={swapiService.getPlanet} {...restProps}>
+      <DetailRecord label='Population' field='population' />
+      <DetailRecord label='Rotation Period' field='rotationPeriod' />
+      <DetailRecord label='Diameter' field='diameter' />
+    </ItemDetails>
+  );
+};
+
+const PlanetItemDetails = withSwapiService(_PlanetItemDetails);
+
+
 export {
   PersonItemDetails,
+  StarshipItemDetails,
+  PlanetItemDetails,
 };
