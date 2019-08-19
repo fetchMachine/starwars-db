@@ -8,6 +8,10 @@
   user-select: none;
 }
 
+.header__title {
+  margin-bottom: 1rem;
+}
+
 .header__links-list-item:hover {
   background-color: #444;
 }

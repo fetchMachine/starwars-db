@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Header from '../header';
 import RandomItem from '../random-item';
 import {
@@ -8,6 +9,7 @@ import {
 } from '../hoc-components';
 import { SwapiServiceProvider } from '../ctx-swapi-service';
 import SwapiService from '../../services/swapi-service';
+import './app.css';
 
 export default class App extends Component {
 
@@ -15,18 +17,21 @@ export default class App extends Component {
 
   render() {
     return (
-      <div className="app-wrapper">
-        <Header />
-        <RandomItem />
-        <SwapiServiceProvider value={this.swapiService}>
-          <h2>Persons</h2>
-          <PersonCard />
-          <h2>Planets</h2>
-          <PlanetCard />
-          <h2>Starhips</h2>
-          <StarshipCard />
-        </SwapiServiceProvider>
-      </div>
+      <SwapiServiceProvider value={this.swapiService}>
+        <Router>
+          <Switch>
+            <div className="app-wrapper">
+              <Header />
+              <RandomItem />
+              <Route path="/" exact render={() => (<span>Welcome to StarWars Data Base...</span>)} />
+              <Route path="/peoples/" component={PersonCard} />
+              <Route path="/planets/" component={PlanetCard} />
+              <Route path="/starships/" component={StarshipCard} />
+              <Redirect to="/" />
+            </div>
+          </Switch>
+        </Router>
+      </SwapiServiceProvider>
     )
   }
 }
