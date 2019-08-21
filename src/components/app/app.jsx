@@ -19,17 +19,23 @@ export default class App extends Component {
     return (
       <SwapiServiceProvider value={this.swapiService}>
         <Router>
+        <div className="app-wrapper">
+        <Header />
+        <RandomItem />
           <Switch>
-            <div className="app-wrapper">
-              <Header />
-              <RandomItem />
               <Route path="/" exact render={() => (<span>Welcome to StarWars Data Base...</span>)} />
-              <Route path="/peoples/" component={PersonCard} />
-              <Route path="/planets/" component={PlanetCard} />
-              <Route path="/starships/" component={StarshipCard} />
+              <Route path="/peoples/:id?" render={
+                ({ match: { params: { id } } }) => <PersonCard data={id} />
+              } />
+              <Route path="/planets/:id?" render={
+                ({ match: { params: { id } } }) => <PlanetCard data={id} />
+              } /> />
+              <Route path="/starships/:id?" render={
+                ({ match: { params: { id } } }) => <StarshipCard data={id} />
+              } /> />
               <Redirect to="/" />
-            </div>
           </Switch>
+          </div>
         </Router>
       </SwapiServiceProvider>
     )

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import SwapiBD from '../../services/swapi-service';
 import Spinner from '../spinner';
+import { withRouter } from 'react-router-dom';
 import './item-details.css';
 
 const DetailRecord = ({ item, field, label }) => (
@@ -10,7 +11,7 @@ const DetailRecord = ({ item, field, label }) => (
   </li>
 );
 
-export default class ItemDetails extends Component {
+class ItemDetails_ extends Component {
 
   state = {
     item: {},
@@ -38,6 +39,12 @@ export default class ItemDetails extends Component {
     }
   }
 
+
+  componentDidMount() {
+    if (this.props.match.params.id) {
+      this.udpdateitem();
+    }
+  }
 
   render() {
     const { item } = this.state;
@@ -71,5 +78,9 @@ export default class ItemDetails extends Component {
   }
 }
 
+
+const ItemDetails = withRouter(ItemDetails_);
+
+export default ItemDetails;
 
 export { DetailRecord };

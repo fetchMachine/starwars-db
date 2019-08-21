@@ -24,7 +24,7 @@ const withNetwortkRequest = (Wrapped) => {
         return <ErrorIndocator />
       }
 
-      return <Wrapped {...this.props} data={this.state.data} setData={this.setData} />
+      return <Wrapped {...this.props} data={this.state.data} />
     }
   }
 }

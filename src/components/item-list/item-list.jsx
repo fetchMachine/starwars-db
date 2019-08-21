@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import Spinner from '../spinner';
 import ErrorIndicator from '../error-indicator'
+import { withRouter } from 'react-router-dom';
 import './item-list.css';
 
-export default class ItemList extends Component {
+class ItemList_ extends Component {
 
   state = {
     items: [],
@@ -33,7 +34,6 @@ export default class ItemList extends Component {
 
   getItemsElements() {
     const { items } = this.state;
-    const { onItemClick } = this.props;
     return items.map((item) => {
       const { id } = item;
       const { label } = this.props.getItemData(item);
@@ -41,7 +41,7 @@ export default class ItemList extends Component {
         className="list-group-item item-list__item"
         key={id}
         onClick={
-          () => onItemClick(id)
+          () => this.props.history.push(id)
         }
       >
         {label}
@@ -63,3 +63,7 @@ export default class ItemList extends Component {
     );
   }
 }
+
+const ItemList = withRouter(ItemList_);
+
+export default ItemList;
