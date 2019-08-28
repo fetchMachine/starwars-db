@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import Header from '../header';
 import RandomItem from '../random-item';
+import Greeting from '../greeting';
 import {
   PersonCard,
   StarshipCard,
@@ -23,7 +24,7 @@ export default class App extends Component {
         <Header />
         <RandomItem />
           <Switch>
-              <Route path="/" exact render={() => (<span>Welcome to StarWars Data Base...</span>)} />
+              <Route path="/" exact component={Greeting} />
               <Route path="/peoples/:id?" render={
                 ({ match: { params: { id } } }) => <PersonCard itemID={id} />
               } />

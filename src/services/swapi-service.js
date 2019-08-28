@@ -2,6 +2,13 @@ export default class SwapiBD {
     #url = 'https://swapi.co/api/';
     #imgUrl = 'https://starwars-visualguide.com/assets/img/';
 
+    static isValidID(id) {
+        if (Number.isFinite(parseInt(id))) {
+            return true;
+        }
+        return false;
+    }
+
     getData(url) {
         return fetch(url)
             .then(resp => {
@@ -26,7 +33,7 @@ export default class SwapiBD {
     }
 
     getPerson = (id) => {
-        if (!Number.isFinite(parseInt(id))) {
+        if (!SwapiBD.isValidID(id)) {
             return Promise.resolve(undefined);
         }
         const url = `${this.#url}people/${id}`;
@@ -44,7 +51,7 @@ export default class SwapiBD {
     }
 
     getStarship = (id) => {
-        if (!Number.isFinite(parseInt(id))) {
+        if (!SwapiBD.isValidID(id)) {
             return Promise.resolve(undefined);
         }
         const url = `${this.#url}starships/${id}`;
@@ -62,7 +69,7 @@ export default class SwapiBD {
     }
 
     getPlanet = (id) => {
-        if (!Number.isFinite(parseInt(id))) {
+        if (!SwapiBD.isValidID(id)) {
             return Promise.resolve(undefined);
         }
         const url = `${this.#url}planets/${id}`;

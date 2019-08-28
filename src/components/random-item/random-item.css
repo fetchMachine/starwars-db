@@ -1,5 +1,6 @@
 .random-item {
   display: flex;
   padding: 1rem;
-  min-height: 12.7rem;
+  min-height: 12.8rem;
+  max-height: 12.8rem;
 }
