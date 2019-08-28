@@ -1,47 +1,19 @@
-import React, { Component } from 'react';
-import Spinner from '../spinner';
-import ErrorIndicator from '../error-indicator'
+import React from 'react';
 import { withRouter } from 'react-router-dom';
+import { WithNetwork } from '../hoc-helpers';
 import './item-list.css';
 
-class ItemList_ extends Component {
+const ItemList_ = ({ data: items, getItemData, history }) => {
 
-  state = {
-    items: [],
-    isLoad: true,
-    isError: false,
-  }
-
-  onitemsLoad = (items) => {
-    this.setState({
-      items,
-      isLoad: false
-    });
-  }
-
-  onError = () => {
-    this.setState({
-      isError: true,
-      isLoad: false,
-    });
-  }
-
-  componentDidMount() {
-    this.props.getItems()
-      .then(this.onitemsLoad)
-      .catch(this.onError);
-  }
-
-  getItemsElements() {
-    const { items } = this.state;
+  const getItemsElements = (items) => {
     return items.map((item) => {
       const { id } = item;
-      const { label } = this.props.getItemData(item);
+      const { label } = getItemData(item);
       return (<li
         className="list-group-item item-list__item"
         key={id}
         onClick={
-          () => this.props.history.push(id)
+          () => history.push(id)
         }
       >
         {label}
@@ -49,21 +21,18 @@ class ItemList_ extends Component {
     )});
   }
 
-  render() {
-    const { isLoad, isError } = this.state;
-    const error = isError ? <ErrorIndicator /> : null;
-    const spinner = isLoad ? <Spinner /> : null;
-    const listItems = !isLoad && !isError ? this.getItemsElements() : null;
+    const listItems = getItemsElements(items);
     return (
       <ul className="list-group item-list">
-        {error}
-        {spinner}
         {listItems}
       </ul>
     );
-  }
 }
 
-const ItemList = withRouter(ItemList_);
+ItemList_.defaultProps = {
+  data: [],
+}
+
+const ItemList = withRouter(WithNetwork(ItemList_));
 
 export default ItemList;

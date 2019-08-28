@@ -22,15 +22,15 @@ const withRenderData = (renderData) => {
 }
 
 const mapMathodsToPropsPersons = (swapiservice) => ({
-  getItems: swapiservice.getAllPersons,
+  getData: swapiservice.getAllPersons,
 });
 
 const mapMathodsToPropsPlanets = (swapiservice) => ({
-  getItems: swapiservice.getAllPlanets,
+  getData: swapiservice.getAllPlanets,
 });
 
 const mapMathodsToPropsStarships = (swapiservice) => ({
-  getItems: swapiservice.getAllStarships,
+  getData: swapiservice.getAllStarships,
 });
 
 const PersonItemList = withSwapiService(withRenderData(renderPersonData), mapMathodsToPropsPersons);
