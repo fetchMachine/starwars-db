@@ -25,9 +25,9 @@ const withCard = (List, Details) => {
   }
 }
 
-const PersonCard = (withCard(PersonItemList, PersonItemDetails));
-const StarshipCard = (withCard(StarshipItemList, StarshipItemDetails));
-const PlanetCard = (withCard(PlanetItemList, PlanetItemDetails));
+const PersonCard = withCard(PersonItemList, PersonItemDetails);
+const StarshipCard = withCard(StarshipItemList, StarshipItemDetails);
+const PlanetCard = withCard(PlanetItemList, PlanetItemDetails);
 
 export {
   PersonCard,
