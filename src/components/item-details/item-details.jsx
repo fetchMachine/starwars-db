@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types'
 import { WithNetwork } from '../hoc-helpers';
 import './item-details.css';
 
@@ -10,7 +11,6 @@ const DetailRecord = ({ item, field, label }) => (
 );
 
 const ItemDetails_ = ({ data: item, children }) => {
-
   const { imgUrl, name } = item;
 
   const detail = name ? (
@@ -32,10 +32,15 @@ const ItemDetails_ = ({ data: item, children }) => {
       {detail}
     </div>
   );
-}
+};
 
 ItemDetails_.defaultProps = {
   data: {},
+};
+
+ItemDetails_.propTypes = {
+  data: PropTypes.object.isRequired,
+  children: PropTypes.node,
 };
 
 const ItemDetails = WithNetwork(ItemDetails_);

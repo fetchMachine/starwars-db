@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
 import { WithNetwork } from '../hoc-helpers';
 import './item-list.css';
@@ -27,11 +28,19 @@ const ItemList_ = ({ data: items, getItemData, history }) => {
         {listItems}
       </ul>
     );
-}
+};
 
 ItemList_.defaultProps = {
   data: [],
-}
+};
+
+ItemList_.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  getItemData: PropTypes.func,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+};
 
 const ItemList = withRouter(WithNetwork(ItemList_));
 
