@@ -25,13 +25,13 @@ export default class App extends Component {
           <Switch>
               <Route path="/" exact render={() => (<span>Welcome to StarWars Data Base...</span>)} />
               <Route path="/peoples/:id?" render={
-                ({ match: { params: { id } } }) => <PersonCard data={id} />
+                ({ match: { params: { id } } }) => <PersonCard itemID={id} />
               } />
               <Route path="/planets/:id?" render={
-                ({ match: { params: { id } } }) => <PlanetCard data={id} />
+                ({ match: { params: { id } } }) => <PlanetCard itemID={id} />
               } /> />
               <Route path="/starships/:id?" render={
-                ({ match: { params: { id } } }) => <StarshipCard data={id} />
+                ({ match: { params: { id } } }) => <StarshipCard itemID={id} />
               } /> />
               <Redirect to="/" />
           </Switch>

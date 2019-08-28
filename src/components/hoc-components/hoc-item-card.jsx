@@ -11,11 +11,9 @@ import {
 } from './hoc-item-details';
 import RowCol2 from '../row-col2';
 
-import { withNetwortkRequest } from '../hoc-helpers';
 
 const withCard = (List, Details) => {
-  return ({ data }) => {
-    const itemID = data;
+  return ({ itemID }) => {
 
     const list = <List />
     const details = <Details itemID={itemID} />

@@ -1,7 +1,5 @@
-import React, { Component } from 'react';
-import SwapiBD from '../../services/swapi-service';
-import Spinner from '../spinner';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
+import { WithNetwork } from '../hoc-helpers';
 import './item-details.css';
 
 const DetailRecord = ({ item, field, label }) => (
@@ -11,76 +9,36 @@ const DetailRecord = ({ item, field, label }) => (
   </li>
 );
 
-class ItemDetails_ extends Component {
+const ItemDetails_ = ({ data: item, children }) => {
+  const { imgUrl, name } = item;
 
-  state = {
-    item: {},
-    isLoad: false,
-  };
-
-  swapiBD = new SwapiBD();
-
-  udpdateitem = () => {
-    this.setState({ isLoad: true });
-    const { itemID } = this.props;
-    this.props.getData(itemID)
-      .then(item => {
-        this.setState({
-          item: { ...item },
-          isLoad: false,
-        });
-      })
-      .catch(window.console.log.bind(window.console));
-  };
-
-  componentDidUpdate(prevProps) {
-    if (prevProps.itemID !== this.props.itemID) {
-      this.udpdateitem();
-    }
+  if (!name) {
+    return <span>Please, Select an Element from the list.</span>;
   }
 
-
-  componentDidMount() {
-    if (this.props.match.params.id) {
-      this.udpdateitem();
-    }
-  }
-
-  render() {
-    const { item } = this.state;
-    const { imgUrl, name } = item;
-
-    const popup = <span>Please, Select an Element from the list.</span>;
-
-    const detail = (
-      <React.Fragment>
-        <img
-          className="item-details__image"
-          src={imgUrl}
-          alt="item"
-        />
-        <div className="card-body">
-          <h2>{name}</h2>
-          <ul className="list-group list-group-flush item-details__description">
-            {React.Children.map(this.props.children, child => React.cloneElement(child, { item }))}
-          </ul>
-        </div>
-      </React.Fragment>
-    );
-
-    const data = name ? detail : popup;
-
-    return (
-      <div className="item-details card">
-        {this.state.isLoad ? <Spinner /> : data}
+  const detail = (
+    <React.Fragment>
+      <img className="item-details__image" src={imgUrl} alt="item" />
+      <div className="card-body">
+        <h2>{name}</h2>
+        <ul className="list-group list-group-flush item-details__description">
+          {React.Children.map(children, child => React.cloneElement(child, { item }))}
+        </ul>
       </div>
-    );
-  }
+    </React.Fragment>
+  );
+
+  return (
+    <div className="item-details card">
+      {detail}
+    </div>
+  );
 }
 
+ItemDetails_.defaultProps = {
+  data: {},
+};
 
-const ItemDetails = withRouter(ItemDetails_);
-
+const ItemDetails = WithNetwork(ItemDetails_);
 export default ItemDetails;
-
 export { DetailRecord };

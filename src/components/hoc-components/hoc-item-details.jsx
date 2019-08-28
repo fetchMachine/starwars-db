@@ -4,7 +4,7 @@ import { withSwapiService } from '../hoc-helpers';
 
 const _PersonItemDetails = ({ itemID, swapiService, ...restProps }) => {
   return (
-    <ItemDetails itemID={itemID} getData={swapiService.getPerson} {...restProps}>
+    <ItemDetails dataID={itemID} getData={swapiService.getPerson} {...restProps}>
       <DetailRecord label='Gender' field='gender' />
       <DetailRecord label='Birth Year' field='birthYear' />
       <DetailRecord label='Eye Color' field='eyeColor' />
@@ -16,7 +16,7 @@ const PersonItemDetails = withSwapiService(_PersonItemDetails);
 
 const _StarshipItemDetails = ({ itemID, swapiService, ...restProps }) => {
   return (
-    <ItemDetails itemID={itemID} getData={swapiService.getStarship} {...restProps}>
+    <ItemDetails dataID={itemID} getData={swapiService.getStarship} {...restProps}>
       <DetailRecord label='Model' field='model' />
       <DetailRecord label='Cost' field='costInCredits' />
       <DetailRecord label='Capacity' field='cargoCapacity' />
@@ -29,7 +29,7 @@ const StarshipItemDetails = withSwapiService(_StarshipItemDetails);
 
 const _PlanetItemDetails = ({ itemID, swapiService, ...restProps }) => {
   return (
-    <ItemDetails itemID={itemID} getData={swapiService.getPlanet} {...restProps}>
+    <ItemDetails dataID={itemID} getData={swapiService.getPlanet} {...restProps}>
       <DetailRecord label='Population' field='population' />
       <DetailRecord label='Rotation Period' field='rotationPeriod' />
       <DetailRecord label='Diameter' field='diameter' />
