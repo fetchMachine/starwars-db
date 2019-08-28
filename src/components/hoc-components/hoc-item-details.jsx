@@ -15,6 +15,7 @@ const _PersonItemDetails = ({ itemID, swapiService, ...restProps }) => {
 const PersonItemDetails = withSwapiService(_PersonItemDetails);
 
 const _StarshipItemDetails = ({ itemID, swapiService, ...restProps }) => {
+  window.console.log(`starshipID === ${itemID}`);
   return (
     <ItemDetails dataID={itemID} getData={swapiService.getStarship} {...restProps}>
       <DetailRecord label='Model' field='model' />
@@ -28,6 +29,7 @@ const StarshipItemDetails = withSwapiService(_StarshipItemDetails);
 
 
 const _PlanetItemDetails = ({ itemID, swapiService, ...restProps }) => {
+  window.console.log(`planetID === ${itemID}`);
   return (
     <ItemDetails dataID={itemID} getData={swapiService.getPlanet} {...restProps}>
       <DetailRecord label='Population' field='population' />

@@ -26,6 +26,9 @@ export default class SwapiBD {
     }
 
     getPerson = (id) => {
+        if (!Number.isFinite(parseInt(id))) {
+            return Promise.resolve(undefined);
+        }
         const url = `${this.#url}people/${id}`;
         return this.getData(url)
             .then(this.transformPerson)
@@ -41,6 +44,9 @@ export default class SwapiBD {
     }
 
     getStarship = (id) => {
+        if (!Number.isFinite(parseInt(id))) {
+            return Promise.resolve(undefined);
+        }
         const url = `${this.#url}starships/${id}`;
         return this.getData(url)
             .then(this.transformStarship)
@@ -56,6 +62,9 @@ export default class SwapiBD {
     }
 
     getPlanet = (id) => {
+        if (!Number.isFinite(parseInt(id))) {
+            return Promise.resolve(undefined);
+        }
         const url = `${this.#url}planets/${id}`;
         return this.getData(url)
             .then(this.transformPlanet);

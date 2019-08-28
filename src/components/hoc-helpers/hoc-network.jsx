@@ -20,16 +20,12 @@ const WithNetwork = (Wrapped) => {
     }
 
     udpdateitem = () => {
-      const { dataID } = this.props;
-      if (!Number.isFinite(parseInt(dataID))) {
-        return;
-      };
-
       this.setState({ isLoad: true });
+      const { dataID } = this.props;
       this.props.getData(dataID)
         .then(data => {
           this.setState({
-            data: { ...data },
+            data: data,
             isLoad: false,
           });
         })

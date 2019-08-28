@@ -10,13 +10,10 @@ const DetailRecord = ({ item, field, label }) => (
 );
 
 const ItemDetails_ = ({ data: item, children }) => {
+
   const { imgUrl, name } = item;
 
-  if (!name) {
-    return <span>Please, Select an Element from the list.</span>;
-  }
-
-  const detail = (
+  const detail = name ? (
     <React.Fragment>
       <img className="item-details__image" src={imgUrl} alt="item" />
       <div className="card-body">
@@ -26,6 +23,8 @@ const ItemDetails_ = ({ data: item, children }) => {
         </ul>
       </div>
     </React.Fragment>
+  ) : (
+    <span>Please, Select an Element from the list.</span>
   );
 
   return (
