@@ -1,92 +1,59 @@
-import React, { Component } from 'react';
-import Spinner from '../spinner';
-import SwapiService from '../../services/swapi-service';
-import ErrorIndocator from '../error-indicator';
+import React from 'react';
+import PropTypes from 'prop-types';
+import { WithSwapiService } from '../hoc-helpers';
 import './random-item.css';
+import { WithNetwork } from '../hoc-helpers';
+import { DetailRecord, ItemDescription } from '../item-details';
 
 
-const ItemView = ({ planet }) => {
-  const { imgUrl, name, population, rotationPeriod, diameter } = planet;
-  return (
-    <React.Fragment>
-      <img
-        className="random-item__item-image"
-        src={imgUrl}
-        alt="Planet name"
-      />
-      <div>
-        <h2>{name}</h2>
-        <ul className="random-item__description list-group-flush">
-          <li className="random-item__description">
-            <span className="random-item__description-term-text">Population</span>
-            <span>{population}</span>
-          </li>
-          <li className="random-item__description">
-            <span className="random-item__description-term-text">Rotation Period</span>
-            <span>{rotationPeriod}</span>
-          </li>
-          <li className="random-item__description">
-            <span className="random-item__description-term-text">Diameter</span>
-            <span>{diameter}</span>
-          </li>
-        </ul>
-      </div>
-    </React.Fragment>
-  );
+const PlanetRecord = ({ item }) => (
+  <ItemDescription item={item}>
+    <DetailRecord item={item} label="Population" field="population" />
+    <DetailRecord item={item} label="Rotation Period" field="rotationPeriod" />
+    <DetailRecord item={item} label="Diameter" field="diameter" />
+  </ItemDescription>
+);
+
+const StarshipRecord = ({ item }) => (
+  <ItemDescription item={item}>
+    <DetailRecord item={item} label='Model' field='model' />
+    <DetailRecord item={item} label='Cost' field='costInCredits' />
+    <DetailRecord item={item} label='Capacity' field='cargoCapacity' />
+  </ItemDescription>
+);
+
+const PersonRecord = ({ item }) => (
+  <ItemDescription item={item}>
+    <DetailRecord item={item} label='Gender' field='gender' />
+    <DetailRecord item={item} label='Birth Year' field='birthYear' />
+    <DetailRecord item={item} label='Eye Color' field='eyeColor' />
+  </ItemDescription>
+);
+
+const RandomItemView = ({ data: item = {} }) => {
+  const Record = item.gender ? PersonRecord : item.model ? StarshipRecord : PlanetRecord;
+  return <Record item={item} />
 };
 
-export default class RandomItem extends Component {
-
-  state = {
-    planet: {},
-    isLoading: true,
-    isError: false,
-  };
-
-  swapiService = new SwapiService();
-
-  onPlanetLoad = (planet) => {
-    this.setState({
-      planet: { ...planet },
-      isLoading: false,
-      isError: false,
-   });
-  };
-
-  onError = () => {
-    this.setState({
-      isError: true,
-      isLoading: false,
-    });
-  }
-
-  setRandomPlanet = () => {
-    this.swapiService.getRandomPlanet()
-      .then(this.onPlanetLoad)
-      .catch(this.onError);
-  }
-
-  componentDidMount() {
-    this.setRandomPlanet();
-    this.timerID = setInterval(this.setRandomPlanet, 5000);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timerID);
-  }
-
-  render() {
-    const { isLoading, planet, isError } = this.state;
-    const error = isError ? <ErrorIndocator /> : null;
-    const spinner = isLoading ? <Spinner /> : null;
-    const itemView = !isLoading && !isError ? <ItemView planet={planet} /> : null;
-
-    return (
-      <div className="random-item jumbotron rounded">
-        {error}
-        {spinner}
-        {itemView}
-      </div>
-    );
-  }
+RandomItemView.propTypes = {
+  data: PropTypes.object,
 }
+
+const RandomItem_ = ({ getRandomItem }) => {
+  const Item = WithNetwork(RandomItemView);
+  return (
+    <div className="random-item jumbotron rounded">
+      <Item getData={getRandomItem} options={{ iterate: true, delay: 7500, showSpinner: false }} />
+    </div>
+  );
+}
+
+RandomItem_.propTypes = {
+  getRandomItem: PropTypes.func,
+}
+
+const mapMathodsToPropsRandomItem = (swapiService) => ({ getRandomItem: swapiService.getRandomItem });
+
+const RandomItem = WithSwapiService(RandomItem_, mapMathodsToPropsRandomItem)
+
+export default RandomItem;

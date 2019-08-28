@@ -10,22 +10,32 @@ const DetailRecord = ({ item, field, label }) => (
   </li>
 );
 
-const ItemDetails_ = ({ data: item, children }) => {
+const ItemDescription = ({ item, children }) => {
   const { imgUrl, name } = item;
 
-  const detail = name ? (
+  return (
     <React.Fragment>
       <img className="item-details__image" src={imgUrl} alt="item" />
       <div className="card-body">
         <h2>{name}</h2>
         <ul className="list-group list-group-flush item-details__description">
-          {React.Children.map(children, child => React.cloneElement(child, { item }))}
+          {children}
         </ul>
       </div>
     </React.Fragment>
-  ) : (
-    <span>Please, Select an Element from the list.</span>
   );
+
+}
+
+const ItemDetails_ = ({ data: item, children }) => {
+
+  const detail = item.name ? (
+    <ItemDescription item={item}>
+      {React.Children.map(children, child => React.cloneElement(child, { item }))}
+    </ItemDescription>
+  ) : (
+      <span>Please, Select an Element from the list.</span>
+    );
 
   return (
     <div className="item-details card">
@@ -45,4 +55,4 @@ ItemDetails_.propTypes = {
 
 const ItemDetails = WithNetwork(ItemDetails_);
 export default ItemDetails;
-export { DetailRecord };
+export { DetailRecord, ItemDescription };

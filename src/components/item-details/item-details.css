@@ -9,6 +9,8 @@
   width: 20%;
   height: 20%;
   border-radius: 10px;
+  max-height: 10.6rem;
+  max-width: 10.6rem;
 }
 
 .item-details__description {

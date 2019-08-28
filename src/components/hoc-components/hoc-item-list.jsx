@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemList from '../item-list';
-import { withSwapiService } from '../hoc-helpers';
+import { WithSwapiService } from '../hoc-helpers';
 
 const renderPersonData = (item) => {
   const gender = item.gender === 'n/a' ? 'robot' : item.gender;
@@ -32,9 +32,9 @@ const mapMathodsToPropsStarships = (swapiservice) => ({
   getData: swapiservice.getAllStarships,
 });
 
-const PersonItemList = withSwapiService(withRenderData(renderPersonData), mapMathodsToPropsPersons);
-const PlanetItemList = withSwapiService(withRenderData(renderItemData), mapMathodsToPropsPlanets);
-const StarshipItemList = withSwapiService(withRenderData(renderItemData), mapMathodsToPropsStarships);
+const PersonItemList = WithSwapiService(withRenderData(renderPersonData), mapMathodsToPropsPersons);
+const PlanetItemList = WithSwapiService(withRenderData(renderItemData), mapMathodsToPropsPlanets);
+const StarshipItemList = WithSwapiService(withRenderData(renderItemData), mapMathodsToPropsStarships);
 
 export {
   PersonItemList,

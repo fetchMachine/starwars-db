@@ -75,6 +75,27 @@ export default class SwapiBD {
         return this.getPlanet(randomID);
     }
 
+    getRandomStarhip = () => {
+        const randomID = Math.floor(Math.random() * 19) + 1;
+        return this.getPerson(randomID);
+    }
+
+    getRandomPerson = () => {
+        const randomID = Math.floor(Math.random() * 19) + 1;
+        return this.getStarship(randomID);
+    }
+
+    getRandomItem = () => {
+        const rand = Math.random();
+        if (rand < 0.33) {
+            return this.getRandomPerson();
+        } else if (rand < 0.66) {
+            return this.getRandomPlanet();
+        } else {
+            return this.getRandomStarhip();
+        };
+    }
+
     getIdFromUrl = (url) => {
         const idRegexp = /([0-9]+)/;
         return url.match(idRegexp)[1];

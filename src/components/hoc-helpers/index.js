@@ -1,7 +1,7 @@
-import withSwapiService from './with-swapi-service';
+import WithSwapiService from './with-swapi-service';
 import WithNetwork from './hoc-network';
 
 export {
-  withSwapiService,
+  WithSwapiService,
   WithNetwork,
 }

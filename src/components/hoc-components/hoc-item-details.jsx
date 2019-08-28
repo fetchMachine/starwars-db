@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemDetails, { DetailRecord } from '../item-details';
-import { withSwapiService } from '../hoc-helpers';
+import { WithSwapiService } from '../hoc-helpers';
 
 const _PersonItemDetails = ({ itemID, swapiService, ...restProps }) => {
   return (
@@ -12,7 +12,7 @@ const _PersonItemDetails = ({ itemID, swapiService, ...restProps }) => {
   );
 };
 
-const PersonItemDetails = withSwapiService(_PersonItemDetails);
+const PersonItemDetails = WithSwapiService(_PersonItemDetails);
 
 const _StarshipItemDetails = ({ itemID, swapiService, ...restProps }) => {
   return (
@@ -24,7 +24,7 @@ const _StarshipItemDetails = ({ itemID, swapiService, ...restProps }) => {
   );
 };
 
-const StarshipItemDetails = withSwapiService(_StarshipItemDetails);
+const StarshipItemDetails = WithSwapiService(_StarshipItemDetails);
 
 
 const _PlanetItemDetails = ({ itemID, swapiService, ...restProps }) => {
@@ -37,7 +37,7 @@ const _PlanetItemDetails = ({ itemID, swapiService, ...restProps }) => {
   );
 };
 
-const PlanetItemDetails = withSwapiService(_PlanetItemDetails);
+const PlanetItemDetails = WithSwapiService(_PlanetItemDetails);
 
 
 export {

@@ -19,8 +19,11 @@ const WithNetwork = (Wrapped) => {
       });
     }
 
-    udpdateitem = () => {
-      this.setState({ isLoad: true });
+    udpdateItem = () => {
+      const { options: { showSpinner = true } = {} } = this.props;
+      if (showSpinner) {
+        this.setState({ isLoad: true })
+      };
       const { dataID } = this.props;
       this.props.getData(dataID)
         .then(data => {
@@ -34,12 +37,26 @@ const WithNetwork = (Wrapped) => {
 
     componentDidUpdate(prevProps) {
       if (prevProps.dataID !== this.props.dataID) {
-        this.udpdateitem();
+        this.udpdateItem();
       }
     }
 
     componentDidMount() {
-      this.udpdateitem();
+      this.udpdateItem();
+      const { options: { iterate } = {} } = this.props;
+      if (iterate) {
+        const { delay = 5000 } = this.props.options;
+        if (!Number.isFinite(delay)) {
+          throw new Error(`Expected delay as number but has a ${typeof delay}`);
+        }
+        this.timerID = setInterval(() => this.udpdateItem(), delay);
+      }
+    }
+
+    componentWillUnmount() {
+      if (this.timerID) {
+        clearInterval(this.timerID);
+      }
     }
 
     render() {
